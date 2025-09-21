@@ -26,6 +26,8 @@ jobs:
   merge:
     if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id || github.event.sender.id == '119362912'
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
 
     steps:
     - name: Checkout
@@ -35,14 +37,24 @@ jobs:
 
     - uses: de-vri-es/setup-git-credentials@v2
       with:
-        credentials: https://kiddin9:${{ secrets.TOKEN_KIDDIN9 }}@github.com/
-    
+        credentials: https://xybydy:${{ secrets.TOKEN_WRT }}@github.com/
+
+    # - name: Free disk space
+    #   uses: coder-xiaomo/free-disk-space@main
+    #   with:
+    #     tool-cache: false
+    #     android: true
+    #     dotnet: true
+    #     haskell: true
+    #     large-packages: true
+    #     docker-images: true
+    #     swap-storage: true
+
     - name: Set git identity
       run : |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-        sudo timedatectl set-timezone "Asia/Shanghai"
-
+        sudo timedatectl set-timezone "Europe/Istanbul"
     - name: Syn upstream
       run: |
         shopt -s extglob
@@ -84,8 +96,9 @@ jobs:
         rm -rf $1
         }
         (
-        git_clone https://github.com/kiddin9/my-packages && mvdir my-packages
-        git_clone https://github.com/kiddin9/openwrt-bypass && mvdir openwrt-bypass
+        git_clone https://github.com/xybydy/my-packages && mvdir my-packages
+        git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-bypass
+        # git_clone https://github.com/kiddin9/openwrt-bypass && mvdir openwrt-bypass
         git_clone https://github.com/kiddin9/luci-app-dnsfilter
         git_clone https://github.com/kiddin9/aria2
         git_clone https://github.com/kiddin9/luci-theme-edge
@@ -275,6 +288,10 @@ jobs:
         git_clone https://github.com/kenzok78/luci-app-guest-wifi
         git_clone https://github.com/EkkoG/openwrt-natmap
         git_clone https://github.com/EkkoG/luci-app-natmap
+        ) &
+        (
+        git_clone https://github.com/timsaya/luci-app-bandix
+        git_clone https://github.com/timsaya/openwrt-bandix && mvdir bandix
         ) &
         (
         git_clone https://github.com/EasyTier/luci-app-easytier luci-app-easytier1 && mvdir luci-app-easytier1
