@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-export LANG=zh_CN.UTF-8
+# export LANG=en_US.UTF-8
 
 THIS_SCRIPT="sysinfo"
 MOTD_DISABLE=""
@@ -80,9 +80,9 @@ case ${time} in
 		time=$(awk -F" " '{print $3" 小时"}' <<<"${UptimeString}")
 		;;
 	*day) # days
-		days=$(awk -F" " '{print $3"天"}' <<<"${UptimeString}")
+		days=$(awk -F" " '{print $3" days"}' <<<"${UptimeString}")
 		time=$(awk -F" " '{print $5}' <<<"${UptimeString}")
-		time="$days "$(awk -F":" '{print $1"小时 "$2"分钟"}' <<<"${time}")
+		time="$days "$(awk -F":" '{print $1" hours "$2" minutes"}' <<<"${time}")
 		;;
 esac
 
@@ -103,19 +103,19 @@ done
 ip_address="$(get_ip_addresses)"
 
 # display info
-display "系统负载" "${load%% *}" "${critical_load}" "0" "" "${load#* }"
-printf "运行时间:  \x1B[92m%s\x1B[0m\t\t" "$time"
+display "System Load:" "${load%% *}" "${critical_load}" "0" "" "${load#* }"
+printf "Runtime:  \x1B[92m%s\x1B[0m\t\t" "$time"
 echo "" # fixed newline
 
 
-display "内存已用" "$memory_usage" "70" "0" " %" " of ${memory_total}MB"
-display "交换内存" "$swap_usage" "10" "0" " %" " of $swap_total""Mb"
-printf "IP  地址:  \x1B[92m%s\x1B[0m" "$ip_address"
+display "Memory Usage:" "$memory_usage" "70" "0" " %" " of ${memory_total}MB"
+display "Swap Memory:" "$swap_usage" "10" "0" " %" " of $swap_total""Mb"
+printf "IP  Address:  \x1B[92m%s\x1B[0m" "$ip_address"
 echo "" # fixed newline
 
-display "系统存储" "$root_usage" "90" "1" "%" " of $root_total"
+display "Storage:" "$root_usage" "90" "1" "%" " of $root_total"
 if [ -x /sbin/cpuinfo ]; then
-printf "CPU 信息: \x1B[92m%s\x1B[0m\t" "$(echo `/sbin/cpuinfo | cut -d ' ' -f -4`)"
+printf "CPU Info: \x1B[92m%s\x1B[0m\t" "$(echo `/sbin/cpuinfo | cut -d ' ' -f -4`)"
 fi
 echo ""
 echo ""

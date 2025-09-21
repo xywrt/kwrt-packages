@@ -9,7 +9,7 @@ sed -i "s/op.supes.top/dl.openwrt.ai/" /etc/opkg/distfeeds.conf
 version=`uci -q get base_config.@status[0].version`
 
 hostname=`uci -q get system.@system[0].hostname`
-[ -n "${hostname}" ] || hostname="Kwrt"
+[ -n "${hostname}" ] || hostname="FWrt"
 
 if [ "$(uci -q get dhcp.@dnsmasq[0].port)" != "53" ]; then
 	uci -q set dhcp.@dnsmasq[0].port='53'
@@ -46,14 +46,17 @@ if [[ ! "$version" || "$version" -lt 1 ]]; then
 	uci commit dropbear
 	
 	if uci -q get system.@system[0] >/dev/null; then
-		uci -q set system.@system[0].zonename='Asia/Shanghai'
-		uci -q set system.@system[0].timezone='CST-8'
+		uci -q set system.@system[0].zonename='Europe/Istanbul'
+		uci -q set system.@system[0].timezone='<+03>-3'
 		uci -q set system.@system[0].conloglevel='4'
 		uci -q set system.@system[0].cronloglevel='8'
 		uci -q set system.@system[0].ttylogin='1'
 		uci -q del system.ntp.server
-		uci -q add_list system.ntp.server='ntp.aliyun.com'
-		uci -q add_list system.ntp.server='0.openwrt.pool.ntp.org'
+		uci -q add_list system.ntp.server='0.pool.ntp.org'
+		uci -q add_list system.ntp.server='0.tr.pool.ntp.org'
+		uci -q add_list system.ntp.server='1.pool.ntp.org'
+		uci -q add_list system.ntp.server='1.tr.pool.ntp.org'
+
 		uci commit system
 	fi
 

@@ -6,13 +6,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aliyundrive-webdav
-PKG_VERSION:=2.3.3
-PKG_RELEASE:=8
+PKG_VERSION:=2.3.2
+PKG_RELEASE:=9
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/messense/aliyundrive-webdav.git
-PKG_SOURCE_VERSION:=affeeda09a88c9fda18e82583cc02c275e4b932d
+PKG_SOURCE_VERSION:=null
 PKG_MIRROR_HASH:=skip
 
 PKG_LICENSE:=MIT
