@@ -17,14 +17,14 @@ on:
       ssh:
         description: 'ssh'
         required: false
-        default: 'true'
+        default: 'false'
   watch:
     types: started
   repository_dispatch:
 
 jobs:
   merge:
-    if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id || github.event.sender.id == '167806051'
+    if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id || github.event.sender.id == '167806051'|| github.event.sender.id == '4909109'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
