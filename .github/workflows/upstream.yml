@@ -37,7 +37,7 @@ jobs:
 
     - uses: de-vri-es/setup-git-credentials@v2
       with:
-        credentials: https://xybydy:${{ secrets.TOKEN_WRT }}@github.com/
+        credentials: https://xybydy:${{ secrets.TOKEN_XY }}@github.com/
 
     # - name: Free disk space
     #   uses: coder-xiaomo/free-disk-space@main
@@ -97,7 +97,7 @@ jobs:
         }
         (
         git_clone https://github.com/xybydy/my-packages && mvdir my-packages
-        git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-bypass
+        #git_sparse_clone main https://github.com/kiddin9/kwrt-packages luci-app-bypass
         # git_clone https://github.com/kiddin9/openwrt-bypass && mvdir openwrt-bypass
         git_clone https://github.com/kiddin9/luci-app-dnsfilter
         git_clone https://github.com/kiddin9/aria2
@@ -441,7 +441,7 @@ jobs:
         (
         function latest() {
           (curl -gs -H 'Content-Type: application/json' \
-             -H "Authorization: Bearer ${{ secrets.TOKEN_KIDDIN9 }}" \
+             -H "Authorization: Bearer ${{ secrets.TOKEN_XY }}" \
              -X POST -d '{ "query": "query {repository(owner: \"'"$1"'\", name: \"'"$2"'\"){latestRelease{tagName tagCommit{oid}}refs(refPrefix:\"refs/tags/\",last:1,orderBy:{field:TAG_COMMIT_DATE,direction:ASC}){edges{node{name target{oid}}}}defaultBranchRef{target{...on Commit {oid}}}}}"}' https://api.github.com/graphql)
         }
         for pkg in $(ls !(luci-*|nikki|openwrt-einat-ebpf|glorytun|wxbase|3proxy|ucode|homebox|sub-web|tcptraceroute|systemtap|frp|openwrt-caddy|mentohust|brlaser|rapidjson|smartdns|hysteria|gecoosac|hickory-dns|libcryptopp|naiveproxy|rustdesk-server|shadowsocksr-libev|tuic-server|joker|natter|netmaker|openwrt-ympd|subconverter|sms-tool)/Makefile); do
