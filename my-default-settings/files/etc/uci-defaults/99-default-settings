@@ -208,7 +208,7 @@ if [ -z "`uci -q get dhcp.default_server`" ]; then
 	uci -q set dhcp.default_server=domain
 	uci -q set dhcp.default_server.name='kwrt'
 	uci -q set dhcp.default_server.ip='10.0.0.1'
-	uci -q set dhcp.default_server.comments='后台地址'
+	uci -q set dhcp.default_server.comments='backend address'
 	uci commit dhcp
 fi
 grep -q "uwsgi_read_timeout" /etc/nginx/conf.d/luci.locations 2>/dev/null || {
