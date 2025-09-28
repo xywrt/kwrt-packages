@@ -528,7 +528,7 @@ print_wan
 print_lan
 print_wlan
 print_vpn
-print_extra
+# print_extra
 print_bottom_line
 finalize
 #exit 0
